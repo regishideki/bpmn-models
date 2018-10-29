@@ -1,3 +1,4 @@
+package auto_refi.growth_process;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
@@ -11,8 +12,8 @@ import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-@Deployment(resources = "growthProcess.bpmn")
-public class GrowthProcess {
+@Deployment(resources = "./auto_refi/growth_process/201810291438.bpmn")
+public class _201810291438 {
 	  @Rule
 	  public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
