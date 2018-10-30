@@ -6,7 +6,7 @@
 - create a copy of the bpmn in the same directory created above with the name `latest.bpmn`
 - create a new test in `src/test/java/<namespace>/<process_name>/_<timestamp in yyyyMMddhhmm format>>
 
-# How to modify an existing bpmn:
+## How to modify an existing bpmn:
 - modify `latest.bpmn` as you want
 - create a new test:
 ```bash
