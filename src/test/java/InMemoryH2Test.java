@@ -1,5 +1,3 @@
-package creditas.camunda.demo_test;
-
 import java.sql.SQLException;
 
 import org.apache.ibatis.logging.LogFactory;
@@ -13,7 +11,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
-import static org.junit.Assert.*;
 
 /**
  * Test case starting an in-memory database-backed Process Engine.

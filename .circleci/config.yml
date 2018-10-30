@@ -4,13 +4,11 @@ jobs:
     working_directory: ~/bpmn-models
 
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
-
+      - image: maven:3.5.4-jdk-7
     steps:
       - checkout
       - restore_cache:
           key: bpmn-models-{{ checksum "pom.xml" }}
-      - run: mvn dependency:go-offline
       - save_cache:
           paths:
             - ~/.m2
