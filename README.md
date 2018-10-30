@@ -1,9 +1,32 @@
 # This repository is responsible to retrieve the `.bpmn` models and test them
-## How to test a new `bpmn` model: 
-- create your model in `src/main/resources/`
-- create a new test case in `src/test/java/`
 
-As a example, you can see `src/main/resources/growthProcess.bpmn` tested in `src/test/java/GrowthProcess.java`
+## How to create a new bpmn:
+
+- create a new bpmn in src/main/resources/<namespaces>/<process_name>/<timestamp in yyyyMMddhhmm format>.bpmn
+- create a copy of the bpmn in the same directory created above with the name `latest.bpmn`
+- create a new test in `src/test/java/<namespace>/<process_name>/_<timestamp in yyyyMMddhhmm format>>
+
+# How to modify an existing bpmn:
+- modify `latest.bpmn` as you want
+- create a new test:
+```bash
+touch src/test/java/<namespaces>/<process_name>/Latest.java
+```
+- create a copy of it timestamped:
+```bash
+cp src/main/resouces/<namespaces>/<process_name>/latest src/main/resouces/<namespaces>/<process_name>/<timestamp in yyyyMMddhhmm format>.bpmn
+```
+- rename the test class with the bpmn timestamp:
+```bash
+cp src/test/java/<namespaces>/<process_name>/Latest.java src/test/java/<namespaces>/<process_name>/_<timestamp in yyyyMMddhhmm format>.java
+```
+- if you want to deploy the change, update the deploy_workflow.sh with deploy information:
+```bash
+TIMESTAMP=<timestamp in yyyyMMddhhmm format>
+DEPLOYMENT_NAME=<deployment name>
+BPMN=@src/main/resources/<namespace>/<process_name>/$TIMESTAMP.bpmn
+deploy
+```
 
 # Camunda BPM Process Application
 A Process Application for [Camunda BPM](http://docs.camunda.org).
