@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/bpmn-models
+
+    docker:
+      - image: maven:3.5.4-jdk-7
+    steps:
+      - checkout
+      - restore_cache:
+          key: bpmn-models-{{ checksum "pom.xml" }}
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: bpmn-models-{{ checksum "pom.xml" }}
+      - run: mvn clean test
