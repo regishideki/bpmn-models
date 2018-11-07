@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0hrxdzd" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:process id="growthProcess" isExecutable="true">
+    <bpmn:startEvent id="startGrowthProcess">
+      <bpmn:outgoing>SequenceFlow_1pxqxw0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1pxqxw0" sourceRef="startGrowthProcess" targetRef="ExclusiveGatewayLoanAmountIsGreaterOrEqual10k" />
+    <bpmn:exclusiveGateway id="ExclusiveGatewayLoanAmountIsGreaterOrEqual10k" name="Loan amount is greater or equal 10k?" default="SequenceFlowLoanAmountIsGreaterOrEqual10kDefault">
+      <bpmn:incoming>SequenceFlow_1pxqxw0</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlowLoanAmountIsGreaterOrEqual10kYes</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlowLoanAmountIsGreaterOrEqual10kDefault</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlowLoanAmountIsGreaterOrEqual10kYes" name="yes" sourceRef="ExclusiveGatewayLoanAmountIsGreaterOrEqual10k" targetRef="TaskNormalFlow">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{loanAmount &gt;= 10000}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="ExclusiveGatewayLoanAmountIsGreaterOrEqual10kMerge">
+      <bpmn:incoming>SequenceFlowLoanAmountIsGreaterOrEqual10kDefaultMerge</bpmn:incoming>
+      <bpmn:incoming>SequenceFlowLoanAmountIsGreaterOrEqual10kYesMerge</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ly4ijq</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlowLoanAmountIsGreaterOrEqual10kDefaultMerge" sourceRef="TaskAutomaticFlow" targetRef="ExclusiveGatewayLoanAmountIsGreaterOrEqual10kMerge" />
+    <bpmn:endEvent id="endGrowthProcess" name="End growth process">
+      <bpmn:incoming>SequenceFlow_0ly4ijq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0ly4ijq" sourceRef="ExclusiveGatewayLoanAmountIsGreaterOrEqual10kMerge" targetRef="endGrowthProcess" />
+    <bpmn:sequenceFlow id="SequenceFlowLoanAmountIsGreaterOrEqual10kYesMerge" sourceRef="TaskNormalFlow" targetRef="ExclusiveGatewayLoanAmountIsGreaterOrEqual10kMerge" />
+    <bpmn:sequenceFlow id="SequenceFlowLoanAmountIsGreaterOrEqual10kDefault" name="No" sourceRef="ExclusiveGatewayLoanAmountIsGreaterOrEqual10k" targetRef="TaskAutomaticFlow" />
+    <bpmn:userTask id="TaskNormalFlow" name="Normal Flow">
+      <bpmn:incoming>SequenceFlowLoanAmountIsGreaterOrEqual10kYes</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlowLoanAmountIsGreaterOrEqual10kYesMerge</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="TaskAutomaticFlow" name="Automatic Flow">
+      <bpmn:incoming>SequenceFlowLoanAmountIsGreaterOrEqual10kDefault</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlowLoanAmountIsGreaterOrEqual10kDefaultMerge</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="growthProcess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="startGrowthProcess">
+        <dc:Bounds x="303" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1pxqxw0_di" bpmnElement="SequenceFlow_1pxqxw0">
+        <di:waypoint x="339" y="120" />
+        <di:waypoint x="409" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_1546yma_di" bpmnElement="ExclusiveGatewayLoanAmountIsGreaterOrEqual10k" isMarkerVisible="true">
+        <dc:Bounds x="409" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="347" y="69" width="78" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_06gyi5u_di" bpmnElement="SequenceFlowLoanAmountIsGreaterOrEqual10kYes">
+        <di:waypoint x="434" y="95" />
+        <di:waypoint x="434" y="50" />
+        <di:waypoint x="509" y="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="440" y="70" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0u7htn8_di" bpmnElement="ExclusiveGatewayLoanAmountIsGreaterOrEqual10kMerge" isMarkerVisible="true">
+        <dc:Bounds x="659" y="95" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0i04fcw_di" bpmnElement="SequenceFlowLoanAmountIsGreaterOrEqual10kDefaultMerge">
+        <di:waypoint x="609" y="197" />
+        <di:waypoint x="684" y="197" />
+        <di:waypoint x="684" y="145" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="602" y="179" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_186nqjj_di" bpmnElement="endGrowthProcess">
+        <dc:Bounds x="758" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="751" y="145" width="56" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ly4ijq_di" bpmnElement="SequenceFlow_0ly4ijq">
+        <di:waypoint x="709" y="120" />
+        <di:waypoint x="758" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1pnomv1_di" bpmnElement="SequenceFlowLoanAmountIsGreaterOrEqual10kYesMerge">
+        <di:waypoint x="609" y="50" />
+        <di:waypoint x="684" y="50" />
+        <di:waypoint x="684" y="95" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ip8m4y_di" bpmnElement="SequenceFlowLoanAmountIsGreaterOrEqual10kDefault">
+        <di:waypoint x="434" y="145" />
+        <di:waypoint x="434" y="197" />
+        <di:waypoint x="509" y="197" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="442" y="168" width="15" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0hf8px8_di" bpmnElement="TaskNormalFlow">
+        <dc:Bounds x="509" y="10" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_1s6nv29_di" bpmnElement="TaskAutomaticFlow">
+        <dc:Bounds x="509" y="157" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

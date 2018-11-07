@@ -1,4 +1,4 @@
-package auto_refi.growth_process;
+package auto_refi;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,8 +13,8 @@ import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.junit.Rule;
 import org.junit.Test;
 
-@Deployment(resources = "./auto_refi/growth_process/201810291438.bpmn")
-public class _201810291438Test {
+@Deployment(resources = "./auto_refi/growth.bpmn")
+public class GrowthTest {
 	  @Rule
 	  public ProcessEngineRule processEngineRule = new ProcessEngineRule();
 
