@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0hrxdzd" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
-  <bpmn:process id="growthProcess" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0hrxdzd" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:process id="growthProcess" name="Growth Process" isExecutable="true" camunda:versionTag="v1">
     <bpmn:startEvent id="startGrowthProcess">
       <bpmn:outgoing>SequenceFlow_1pxqxw0</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1pxqxw0" sourceRef="startGrowthProcess" targetRef="ExclusiveGateway_1546yma" />
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1546yma" name="Loan amount is greater or equal 10K?" default="SequenceFlow_1ip8m4y">
+    <bpmn:sequenceFlow id="SequenceFlow_1pxqxw0" sourceRef="startGrowthProcess" targetRef="loanAmountGateway" />
+    <bpmn:exclusiveGateway id="loanAmountGateway" name="Loan amount is greater or equal 10K?" default="SequenceFlow_1ip8m4y">
       <bpmn:incoming>SequenceFlow_1pxqxw0</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_06gyi5u</bpmn:outgoing>
+      <bpmn:outgoing>loanAmountGreater</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1ip8m4y</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_06gyi5u" name="yes" sourceRef="ExclusiveGateway_1546yma" targetRef="Task_0opaxgv">
+    <bpmn:sequenceFlow id="loanAmountGreater" name="yes" sourceRef="loanAmountGateway" targetRef="Task_0opaxgv">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{loanAmount &gt;= 10000}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0u7htn8">
@@ -24,9 +24,9 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0ly4ijq" sourceRef="ExclusiveGateway_0u7htn8" targetRef="EndEvent_186nqjj" />
     <bpmn:sequenceFlow id="SequenceFlow_1pnomv1" sourceRef="Task_0opaxgv" targetRef="ExclusiveGateway_0u7htn8" />
-    <bpmn:sequenceFlow id="SequenceFlow_1ip8m4y" sourceRef="ExclusiveGateway_1546yma" targetRef="Task_0alxrh0" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ip8m4y" sourceRef="loanAmountGateway" targetRef="Task_0alxrh0" />
     <bpmn:userTask id="Task_0opaxgv" name="Normal Flow">
-      <bpmn:incoming>SequenceFlow_06gyi5u</bpmn:incoming>
+      <bpmn:incoming>loanAmountGreater</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1pnomv1</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Task_0alxrh0" name="Automatic Flow">
@@ -43,13 +43,13 @@
         <di:waypoint x="339" y="120" />
         <di:waypoint x="409" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ExclusiveGateway_1546yma_di" bpmnElement="ExclusiveGateway_1546yma" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="ExclusiveGateway_1546yma_di" bpmnElement="loanAmountGateway" isMarkerVisible="true">
         <dc:Bounds x="409" y="95" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="347" y="69" width="78" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_06gyi5u_di" bpmnElement="SequenceFlow_06gyi5u">
+      <bpmndi:BPMNEdge id="SequenceFlow_06gyi5u_di" bpmnElement="loanAmountGreater">
         <di:waypoint x="434" y="95" />
         <di:waypoint x="434" y="50" />
         <di:waypoint x="509" y="50" />
