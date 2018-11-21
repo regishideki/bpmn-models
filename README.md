@@ -1,4 +1,5 @@
-# Este repositório é onde ficarão armazenados, versionados  e testados os `bpmn`s do Camunda
+# Este repositório tem o intuito de armazenar, versionar  e testar os `bpmn`s do Camunda
+
 
 ## Como rodar testes de unidade
 ```bash
